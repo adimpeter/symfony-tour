@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('stylesheet/style.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}Hello FormTestController!{% endblock %}
+
+{% block body %}
+
+    <p>
+        Task: {{ task.getTask }} <br>
+        Due Date: {{ task.dueDate | date }}
+    </p>
+    <p>
+        <em>
+            {{ msg }}
+        </em>
+    </p>
+
+<div class="form">
+    {{ form(form) }}
+</div>
+
+{% endblock %}

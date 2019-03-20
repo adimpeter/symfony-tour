@@ -1,0 +1,12 @@
+{% extends 'blog/layout.html.twig' %}
+
+{% block content %}
+
+    <h2>{{ post.Title }}</h2>
+    <p>{{ post.body }}</p>
+
+    <div>
+        <a href="{{ path('show_all_posts') }}">Back</a>
+    </div>
+
+{% endblock %}

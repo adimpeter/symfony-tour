@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+
+{% block postLinks %}
+    <h1>Posts</h1>
+{% endblock %}
+
+{% block randommsg %}
+    <p>Random msg here</p>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>
