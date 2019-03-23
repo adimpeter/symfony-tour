@@ -2,8 +2,16 @@
 
 {% block title %}Hello ProductController!{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('stylesheet/style.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
     <h1>{{ product.title }}</h1>
+    <div class="img-thumb">
+        <img src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="{{ product.title }}" />
+    </div>
     <p>
         {{ product.description }}
     </p>

@@ -58,7 +58,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("Product/{id}", name="find_product")
+     * @Route("product/{id}", name="find_product")
      */
     public function findProduct($id){
         $product = $this->getDoctrine()
@@ -73,5 +73,61 @@ class ProductController extends AbstractController
             'controller_name' => 'ProductController',
             'product' => $product,
         ]);
+    }
+
+    /**
+     * @Route("product/edit/{id}", name="edit_product")
+     */
+    public function updateProduct(Request $request, EntityManagerInterface $entityManager, $id){
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
+
+        if(!$product){
+            throw $this->createNotFoundException('Oops! Seems like this product cant be found at the moment. id:' . $id);
+        }
+
+        // create form
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        // check for form submission
+        if($form->isSubmitted() && $form->isValid()){
+            $product = $form->getData();
+
+            // update database
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('product');
+        }
+
+        return $this->render('product/edit.html.twig', [
+            'controller_name' => 'ProductController',
+            'product' => $product,
+            'form' => $form->createView(),
+        ]);
+
+    }
+
+
+    /**
+     * @Route("product/delete/{id}", name="delete_product")
+     */
+    public function deleteProduct(EntityManagerInterface $entityManager, $id){
+        // find product
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
+
+        if(!$product){
+            throw $this->createNotFoundException('Oops! Seems like this product cant be found at the moment. id:' . $id);
+        }
+
+        $entityManager->remove($product);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('product');
+
     }
 }
