@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+
+    <ul>
+        {% for category in categories %}
+
+            <li>{{ category.name | capitalize}}</li>
+
+        {% endfor %}
+    </ul>
+
+    <p><a href="{{ path('new_category') }}">New Category</a> </p>
+
+{% endblock %}
